@@ -1,0 +1,43 @@
+ishnu=# \d
+          List of relations
+ Schema |   Name   | Type  |  Owner   
+--------+----------+-------+----------
+ public | account  | table | postgres
+ public | accounts | table | postgres
+ public | emp      | table | postgres
+ public | student  | table | postgres
+(4 rows)
+
+vishnu=# select * from student;
+ stu_id |       stu_name       | stu_age |       stu_adr        
+--------+----------------------+---------+----------------------
+    101 | vishnu               |      23 | banglore            
+    102 | vardhan              |      22 | banglore            
+    104 | abhi                 |      26 | banglore            
+    103 | siddu                |      25 | banglore            
+(4 rows)
+
+vishnu=# create procedure teacher(integer,text,integer,char)
+vishnu-# LANGUAGE 'plpgsql'
+vishnu-# AS $$
+vishnu$# BEGIN 
+vishnu$# INSERT INTO public.student(stu_id,stu_name,stu_age,stu_adr) values ($1,$2,$3,$4);
+vishnu$# COMMIT;
+vishnu$# END;
+vishnu$# $$;
+CREATE PROCEDURE
+vishnu=# call teacher(1,'giri',25,'chennai');
+CALL
+vishnu=# select * from student;
+ stu_id |       stu_name       | stu_age |       stu_adr        
+--------+----------------------+---------+----------------------
+    101 | vishnu               |      23 | banglore            
+    102 | vardhan              |      22 | banglore            
+    104 | abhi                 |      26 | banglore            
+    103 | siddu                |      25 | banglore            
+      1 | giri                 |      25 | chennai             
+(5 rows)
+
+vishnu=# 
+
+
